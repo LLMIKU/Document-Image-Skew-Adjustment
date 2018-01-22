@@ -1,22 +1,22 @@
-%%±¾°æ»ùÓÚ»ô·ò±ä»»Ô­Àí 
+%%æœ¬ç‰ˆåŸºäºéœå¤«å˜æ¢åŸç†
 %%2018.01.16 by Cooper Liu
 %%Questions? Contact me: angelpoint@foxmail.com
-clear;clc; %Çå¿ÕÖ®Ç°µÄ±äÁ¿
-I=imread('line5.bmp'); %¶ÁÈ¡Í¼Ïñ
-level=graythresh(I); %Ê¹ÓÃ×î´óÀà¼ä·½²î·¨ÕÒµ½Í¼Æ¬µÄÒ»¸öºÏÊÊµÄãĞÖµ
-bw=im2bw(I,level); %¸ù¾İãĞÖµ£¬Ê¹ÓÃim2bwº¯Êı½«»Ò¶ÈÍ¼Ïñ×ª»»Îª¶şÖµÍ¼ÏñÊ±
+clear;clc; %æ¸…ç©ºä¹‹å‰çš„å˜é‡
+I=imread('line5.bmp'); %è¯»å–å›¾åƒ
+level=graythresh(I); %ä½¿ç”¨æœ€å¤§ç±»é—´æ–¹å·®æ³•æ‰¾åˆ°å›¾ç‰‡çš„ä¸€ä¸ªåˆé€‚çš„é˜ˆå€¼
+bw=im2bw(I,level); %æ ¹æ®é˜ˆå€¼ï¼Œä½¿ç”¨im2bwå‡½æ•°å°†ç°åº¦å›¾åƒè½¬æ¢ä¸ºäºŒå€¼å›¾åƒæ—¶
 figure(1);imshow(bw);
-[m,n]=size(bw); %»ñÈ¡³ß´ç
-pMax=round(sqrt(m^2+n^2)); %¼ÆËã×î´óp
-thetaMax=180; %Éè¶¨×î´ó½Ç¶È
-countMatrix=zeros(pMax,thetaMax); %¹ØÓÚpºÍ½Ç¶ÈµÄ¼ÆÊı¾ØÕó
+[m,n]=size(bw); %è·å–å°ºå¯¸
+pMax=round(sqrt(m^2+n^2)); %è®¡ç®—æœ€å¤§p
+thetaMax=180; %è®¾å®šæœ€å¤§è§’åº¦
+countMatrix=zeros(pMax,thetaMax); %å…³äºpå’Œè§’åº¦çš„è®¡æ•°çŸ©é˜µ
 tic;
 for i=1:m
     for j=1:n
         if bw(i,j)==0
-            for theta=1:thetaMax %¶Ôtheta×÷Ñ­»·
-                p=floor( abs( i*cos(3.14*theta/180) + j*sin(3.14*theta/180) ) ); %ÔÚthetaÑ­»·¹ı³ÌÖĞ¼ÆËãÍ¼Ïñ¾ØÕóÖĞÒ»¸öÏñËØµã¶ÔÓ¦µÄpÖµ
-                countMatrix(p+1,theta)=countMatrix(p+1,theta)+1; %ÏñËØµã¶ÔÓ¦µÄ¼ÆÊı¾ØÕóÖĞ(p+1,theta)´¦¼ÆÊı
+            for theta=1:thetaMax %å¯¹thetaä½œå¾ªç¯
+                p=floor( abs( i*cos(3.14*theta/180) + j*sin(3.14*theta/180) ) ); %åœ¨thetaå¾ªç¯è¿‡ç¨‹ä¸­è®¡ç®—å›¾åƒçŸ©é˜µä¸­ä¸€ä¸ªåƒç´ ç‚¹å¯¹åº”çš„på€¼
+                countMatrix(p+1,theta)=countMatrix(p+1,theta)+1; %åƒç´ ç‚¹å¯¹åº”çš„è®¡æ•°çŸ©é˜µä¸­(p+1,theta)å¤„è®¡æ•°
             end
         end
     end
@@ -25,18 +25,18 @@ end
 for i=1:m
     for j=1:n
         if countMatrix(i,j)>countMatrix(1,1)
-            countMatrix(1,1)=countMatrix(i,j); %»ñÈ¡×î¶àÇúÏßµÄÏà½»µã
-            angle=j; %»ñÈ¡Ïà½»µã´¦¶ÔÓ¦µÄ½Ç¶È
+            countMatrix(1,1)=countMatrix(i,j); %è·å–æœ€å¤šæ›²çº¿çš„ç›¸äº¤ç‚¹
+            angle=j; %è·å–ç›¸äº¤ç‚¹å¤„å¯¹åº”çš„è§’åº¦
         end
     end
 end
 toc;
-angle %ÕâÀïµÃµ½µÄ½Ç¶ÈÊÇ Ô­µãµ½Ö±ÏßµÄ´¹Ïß ÓëXÖáµÄ¼Ğ½Ç
+angle %è¿™é‡Œå¾—åˆ°çš„è§’åº¦æ˜¯ åŸç‚¹åˆ°ç›´çº¿çš„å‚çº¿ ä¸Xè½´çš„å¤¹è§’
 if angle<=90
     rot=-angle;
 else
     rot=180-angle;
 end
-pic=imrotate(I,rot,'crop'); %Ğı×ªÍ¼Ïñ
+pic=imrotate(I,rot,'crop'); %æ—‹è½¬å›¾åƒ
 figure(2);imshow(pic);
                 
