@@ -15,7 +15,7 @@
 
 %% 代码段B：测试文档图像23.bmp请启用以下代码，以下是图像预处理部分
 clear;clc;
-I=imread('23.bmp'); %读取图像
+I=imread('24.bmp'); %读取图像
 level=graythresh(I); %使用最大类间方差法找到图片的一个合适的阈值
 bw=im2bw(I,level); %根据阈值，使用im2bw函数将灰度图像转换为二值图像时
 bw=~bw; %二值图像取反
@@ -76,7 +76,10 @@ for k=mark
     angle=angle*180/pi
 end
 toc
-
-rot=90-angle;
+if angle>=0&&angle<=90
+    rot=90-angle;
+else
+    rot=270-angle;
+end
 pic=imrotate(I,rot,'crop'); %旋转图像
 figure(9);imshow(pic);
